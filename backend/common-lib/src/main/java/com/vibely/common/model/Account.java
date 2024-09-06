@@ -32,38 +32,36 @@ public class Account {
     private String name;
 
     @Email
+    @NotBlank
     @Max(320)
     @Column("email")
     private String email;
-
-    @NotBlank
-    @Max(255)
-    @Column("password")
-    private String password;
 
     @Max(160)
     @Column("bio")
     private String bio;
 
-    @Max(20)
+    @NotBlank
+    @Column("password")
+    private String password;
+
+    @Column("image_url")
+    private String imageUrl;
+
+    @NotNull
     @Column("role")
     private Role role;
+
+    @NotNull
+    @Column("status")
+    private Status status;
 
     @NotNull
     @Column("date_of_birth")
     private LocalDate dateOfBirth;
 
-    @Column("image_url")
-    private String imageUrl;
-
-    @Column("locked")
-    private boolean isLocked;
-
     @Column("created_at")
     private LocalDateTime createdAt;
-
-    @Column("updated_at")
-    private LocalDateTime updatedAt;
 
     @Column("last_login_at")
     private LocalDateTime lastLoginAt;
