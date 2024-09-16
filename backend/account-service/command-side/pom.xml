@@ -92,6 +92,10 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<version>${org.mapstruct-processor.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
