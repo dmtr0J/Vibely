@@ -12,7 +12,7 @@
 
     <groupId>com.vibely.account</groupId>
     <artifactId>query-side</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1</version>
 
     <name>account-query-side</name>
     <description>query-side</description>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>com.vibely</groupId>
             <artifactId>common-lib</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.1</version>
         </dependency>
     </dependencies>
 
