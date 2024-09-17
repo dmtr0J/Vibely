@@ -7,7 +7,7 @@
   <version>0.1</version>
   <packaging>jar</packaging>
 
-  <name>common</name>
+  <name>common-lib</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

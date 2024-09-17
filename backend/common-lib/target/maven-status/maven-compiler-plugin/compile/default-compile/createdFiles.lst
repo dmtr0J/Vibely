@@ -1,0 +1,9 @@
+com/vibely/common/model/Account$AccountBuilder.class
+com/vibely/common/command/Command.class
+com/vibely/common/client/SnowflakeIdGeneratorClient.class
+com/vibely/common/command/CommandHandler.class
+com/vibely/common/event/Event.class
+com/vibely/common/model/Status.class
+com/vibely/common/service/SnowflakeIdGeneratorService.class
+com/vibely/common/model/Account.class
+com/vibely/common/model/Role.class

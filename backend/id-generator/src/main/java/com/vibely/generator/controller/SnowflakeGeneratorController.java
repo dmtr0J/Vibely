@@ -14,7 +14,7 @@ public class SnowflakeGeneratorController {
 
     private final SnowflakeGeneratorService snowflakeGeneratorService;
 
-    @GetMapping
+    @GetMapping("/snowflake")
     public Mono<Long> generateId() {
         return snowflakeGeneratorService.nextId();
     }

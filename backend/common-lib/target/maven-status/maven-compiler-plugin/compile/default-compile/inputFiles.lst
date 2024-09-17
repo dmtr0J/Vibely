@@ -1,7 +1,8 @@
-/home/dmytro/Projects/Java/Vibely/backend/common-lib/src/main/java/com/vibely/common/client/IdGeneratorClient.java
+/home/dmytro/Projects/Java/Vibely/backend/common-lib/src/main/java/com/vibely/common/client/SnowflakeIdGeneratorClient.java
 /home/dmytro/Projects/Java/Vibely/backend/common-lib/src/main/java/com/vibely/common/command/Command.java
 /home/dmytro/Projects/Java/Vibely/backend/common-lib/src/main/java/com/vibely/common/command/CommandHandler.java
 /home/dmytro/Projects/Java/Vibely/backend/common-lib/src/main/java/com/vibely/common/event/Event.java
 /home/dmytro/Projects/Java/Vibely/backend/common-lib/src/main/java/com/vibely/common/model/Account.java
 /home/dmytro/Projects/Java/Vibely/backend/common-lib/src/main/java/com/vibely/common/model/Role.java
 /home/dmytro/Projects/Java/Vibely/backend/common-lib/src/main/java/com/vibely/common/model/Status.java
+/home/dmytro/Projects/Java/Vibely/backend/common-lib/src/main/java/com/vibely/common/service/SnowflakeIdGeneratorService.java
