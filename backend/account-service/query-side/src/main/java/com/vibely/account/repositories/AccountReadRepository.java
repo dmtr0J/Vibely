@@ -1,6 +1,6 @@
 package com.vibely.account.repositories;
 
-import com.vibely.common.model.Account;
+import com.vibely.common.entity.Account;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 

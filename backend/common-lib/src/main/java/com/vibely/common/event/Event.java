@@ -1,24 +1,19 @@
 package com.vibely.common.event;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
-@Setter
+@SuperBuilder
 public class Event {
-    /*
-    * Unique event ID
-    * The type of the event
-    * Identifies the aggregate
-    * The serialized event, such as JSON
-    * */
-
-    private UUID id = UUID.randomUUID();
+    private Long id;
     private Long version;
-    private Long aggregateId;
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private final LocalDateTime createdAt = LocalDateTime.now();
     private String data; // json
 }

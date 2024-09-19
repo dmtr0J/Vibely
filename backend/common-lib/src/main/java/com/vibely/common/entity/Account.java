@@ -1,4 +1,4 @@
-package com.vibely.common.model;
+package com.vibely.common.entity;
 
 import jakarta.validation.constraints.*;
 import lombok.*;

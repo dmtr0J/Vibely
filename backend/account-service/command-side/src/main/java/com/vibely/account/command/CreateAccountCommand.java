@@ -6,7 +6,6 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Builder
 @Getter
 public class CreateAccountCommand implements Command {
 

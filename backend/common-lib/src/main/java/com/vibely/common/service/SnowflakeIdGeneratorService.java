@@ -3,6 +3,7 @@ package com.vibely.common.service;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -21,5 +22,12 @@ public class SnowflakeIdGeneratorService {
                 .uri("/api/v1/generator/snowflake")
                 .retrieve()
                 .bodyToMono(Long.class);
+    }
+
+    public Flux<Long> generateIds(short count) {
+        return snowflakeClient.get()
+                .uri("/api/v1/generator/snowflake/batch?count=" + count)
+                .retrieve()
+                .bodyToFlux(Long.class);
     }
 }

@@ -14,8 +14,10 @@ public class CommandService {
     private final CreateAccountHandler createAccountHandler;
 
     public Mono<ResponseEntity<Void>> createAccount(CreateAccountCommand command) {
+
+        // Validation email, name - unique
+
         createAccountHandler.handle(command);
-        // Throw errors
 
         // --ok is 200--  NEED 201 = CREATED
         return Mono.just(ResponseEntity.ok().build());

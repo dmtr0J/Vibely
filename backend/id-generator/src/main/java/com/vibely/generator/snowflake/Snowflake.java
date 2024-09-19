@@ -1,6 +1,8 @@
 package com.vibely.generator.snowflake;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Snowflake {
     private static final int NODE_ID_BITS = 10;
@@ -51,6 +53,14 @@ public class Snowflake {
         return currentTimestamp << (NODE_ID_BITS + SEQUENCE_BITS)
                 | (nodeId << SEQUENCE_BITS)
                 | sequence;
+    }
+
+    public synchronized List<Long> nextIds(short count) {
+        List<Long> ids = new ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
+            ids.add(nextId());
+        }
+        return ids;
     }
 
     private long timestamp() {
