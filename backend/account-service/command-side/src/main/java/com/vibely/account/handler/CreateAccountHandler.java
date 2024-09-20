@@ -12,46 +12,51 @@ import com.vibely.common.entity.Role;
 import com.vibely.common.entity.Status;
 import com.vibely.common.service.SnowflakeIdGeneratorService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
+import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class CreateAccountHandler implements CommandHandler<CreateAccountCommand> {
 
     private final AccountEventRepository accountEventRepository;
-    private final EventMapper eventMapper;
     private final SnowflakeIdGeneratorService snowflakeIdGeneratorService;
     private final ObjectMapper objectMapper;
     // Event Producer
 
+    @Transactional
     public void handle(CreateAccountCommand command) {
-        snowflakeIdGeneratorService.generateIds((short) 2)
-                .collectList()
-                .flatMap(ids -> {
-                    Account account = Account.builder()
-                            .id(ids.getFirst())
-                            .username(command.getUsername())
-                            .name(command.getName())
-                            .email(command.getEmail())
-                            .password(command.getPassword())
-                            .dateOfBirth(command.getDateOfBirth())
-                            .role(Role.USER)
-                            .status(Status.CREATED)
-                            .build();
-
-                    try {
-                        CreateAccountEvent event = CreateAccountEvent.builder()
-                                .id(ids.get(1))
-                                .version(1L)
-                                .data(objectMapper.writeValueAsString(account))
-                                .build();
-                    } catch (JsonProcessingException e) {
-                        return Mono.error(new RuntimeException(e));
-                    }
-                })
-
+//        snowflakeIdGeneratorService.generateIds((short) 2)
+//                .collectList()
+//                .flatMap(ids -> {
+//                    try {
+//                        Account account = Account.builder()
+//                                .id(ids.getFirst())
+//                                .username(command.getUsername())
+//                                .name(command.getName())
+//                                .email(command.getEmail())
+//                                .password(command.getPassword())
+//                                .dateOfBirth(command.getDateOfBirth())
+//                                .role(Role.USER)
+//                                .status(Status.CREATED)
+//                                .build();
+//
+//                        CreateAccountEvent event = CreateAccountEvent.builder()
+//                                .id(ids.get(1))
+//                                .version(1L)
+//                                .data(objectMapper.writeValueAsString(account))
+//                                .build();
+//
+//                        return accountEventRepository.save(event);
+//
+//                    } catch (JsonProcessingException e) {
+//                        log.error(e.getMessage(), e);
+//                    }
+//                })
+//                .flatMap(event -> )
 
 
     }

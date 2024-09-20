@@ -9,7 +9,7 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface EventMapper {
 
-    @Mapping(target = "role", expression = "java(com.vibely.common.entity.Role.USER)")
-    @Mapping(target = "status", expression = "java(com.vibely.common.entity.Status.CREATED)") // Assuming default status is ACTIVE
+    //@Mapping(target = "role", expression = "java(com.vibely.common.entity.Role.USER)")
+    //@Mapping(target = "status", expression = "java(com.vibely.common.entity.Status.CREATED)") // Assuming default status is ACTIVE
     CreateAccountEvent toEvent(CreateAccountCommand command);
 }
