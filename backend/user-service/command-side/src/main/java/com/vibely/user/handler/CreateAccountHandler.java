@@ -6,8 +6,8 @@ import com.vibely.common.entity.Account;
 import com.vibely.common.entity.Role;
 import com.vibely.common.entity.Status;
 import com.vibely.user.command.CreateAccountCommand;
-import com.vibely.user.event.CreateAccountEvent;
-import com.vibely.user.repository.AccountEventRepository;
+import com.vibely.common.event.user.CreateAccountEvent;
+import com.vibely.user.repository.UserEventRepository;
 import com.vibely.common.command.CommandHandler;
 import com.vibely.common.service.SnowflakeIdGeneratorService;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +17,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class CreateAccountHandler implements CommandHandler<CreateAccountCommand> {
 
-    private final AccountEventRepository accountEventRepository;
+    private final UserEventRepository userEventRepository;
     private final SnowflakeIdGeneratorService snowflakeIdGeneratorService;
     private final ObjectMapper objectMapper;
     private final KafkaTemplate<String, String> kafkaTemplate;
@@ -49,6 +51,7 @@ public class CreateAccountHandler implements CommandHandler<CreateAccountCommand
                             .dateOfBirth(command.getDateOfBirth())
                             .role(Role.USER)
                             .status(Status.CREATED)
+                            .createdAt(LocalDateTime.now())
                             .build();
 
                     String accountJson;
@@ -62,10 +65,11 @@ public class CreateAccountHandler implements CommandHandler<CreateAccountCommand
                     CreateAccountEvent event = CreateAccountEvent.builder()
                             .id(eventId)
                             .version(1L)
+                            .createdAt(LocalDateTime.now())
                             .data(accountJson)
                             .build();
 
-                    return accountEventRepository.save(event)
+                    return userEventRepository.save(event)
                             .flatMap(savedEvent -> Mono.fromFuture(
                                     kafkaTemplate.send("user.account.created", savedEvent.getData())));
                 })

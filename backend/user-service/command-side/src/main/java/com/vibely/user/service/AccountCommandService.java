@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-public class CommandService {
+public class AccountCommandService {
 
     private final CreateAccountHandler createAccountHandler;
 

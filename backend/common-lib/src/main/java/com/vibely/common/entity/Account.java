@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 public class Account {
 
     @Id
+    @NotEmpty
     @Column("account_id")
     private Long id;
 
@@ -37,29 +38,30 @@ public class Account {
     @Column("email")
     private String email;
 
-    @Max(160)
-    @Column("bio")
-    private String bio;
-
     @NotBlank
     @Column("password")
     private String password;
 
+    @Max(160)
+    @Column("bio")
+    private String bio;
+
     @Column("image_url")
     private String imageUrl;
 
-    @NotNull
+    @NotEmpty
     @Column("role")
     private Role role;
 
-    @NotNull
+    @NotEmpty
     @Column("status")
     private Status status;
 
-    @NotNull
+    @NotEmpty
     @Column("date_of_birth")
     private LocalDate dateOfBirth;
 
+    @NotEmpty
     @Column("created_at")
     private LocalDateTime createdAt;
 

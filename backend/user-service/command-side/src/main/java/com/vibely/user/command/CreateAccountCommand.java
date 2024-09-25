@@ -7,6 +7,7 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Getter
+@AllArgsConstructor
 public class CreateAccountCommand implements Command {
 
     @NotBlank
@@ -19,7 +20,7 @@ public class CreateAccountCommand implements Command {
 
     @Email
     @NotBlank
-    @Max(320)
+    @Size(min = 1, max = 320)
     private String email;
 
     @NotBlank
