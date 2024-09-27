@@ -2,14 +2,15 @@ package com.vibely.user.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vibely.common.bus.HandleCommand;
 import com.vibely.common.entity.Account;
 import com.vibely.common.entity.Role;
 import com.vibely.common.entity.Status;
 import com.vibely.user.command.CreateAccountCommand;
 import com.vibely.common.event.user.CreateAccountEvent;
-import com.vibely.user.repository.UserEventRepository;
 import com.vibely.common.command.CommandHandler;
 import com.vibely.common.service.SnowflakeIdGeneratorService;
+import com.vibely.user.service.EventService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -24,13 +25,14 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class CreateAccountHandler implements CommandHandler<CreateAccountCommand> {
 
-    private final UserEventRepository userEventRepository;
+    private final EventService eventService;
     private final SnowflakeIdGeneratorService snowflakeIdGeneratorService;
     private final ObjectMapper objectMapper;
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     //TODO Refactor
     @Transactional
+    @HandleCommand(commandType = CreateAccountCommand.class)
     public Mono<Void> handle(CreateAccountCommand command) {
         return snowflakeIdGeneratorService.generateIds((short) 2)
                 .collectList()
@@ -69,7 +71,7 @@ public class CreateAccountHandler implements CommandHandler<CreateAccountCommand
                             .data(accountJson)
                             .build();
 
-                    return userEventRepository.save(event)
+                    return eventService.save(event)
                             .flatMap(savedEvent -> Mono.fromFuture(
                                     kafkaTemplate.send("user.account.created", savedEvent.getData())));
                 })

@@ -21,13 +21,14 @@ public class QueryBus {
     public void registerHandlers() {
         for (Object bean : beansWithHandlers.values()) {
             for (Method method : bean.getClass().getMethods()) {
-                if (method.isAnnotationPresent(QueryHandler.class)) {
-                    Class<?> queryType = method.getAnnotation(QueryHandler.class).queryType();
+                if (method.isAnnotationPresent(HandleQuery.class)) {
+                    Class<?> queryType = method.getAnnotation(HandleQuery.class).queryType();
                     queryHandlers.put(queryType, method);
                 }
             }
         }
     }
+
 
     public <T, R> R dispatchQuery(T query) {
         Method handlerMethod = queryHandlers.get(query.getClass());
