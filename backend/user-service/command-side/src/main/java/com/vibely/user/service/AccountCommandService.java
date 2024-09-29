@@ -1,9 +1,7 @@
 package com.vibely.user.service;
 
-import com.vibely.common.entity.Account;
 import com.vibely.user.command.CreateAccountCommand;
 import com.vibely.user.handler.CreateAccountHandler;
-import com.vibely.user.repository.UserEventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

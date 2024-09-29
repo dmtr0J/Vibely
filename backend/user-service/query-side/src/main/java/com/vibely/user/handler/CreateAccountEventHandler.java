@@ -2,9 +2,8 @@ package com.vibely.user.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vibely.common.entity.Account;
+import com.vibely.common.model.Account;
 import com.vibely.common.event.EventHandler;
-import com.vibely.common.event.user.CreateAccountEvent;
 import com.vibely.user.repositories.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;

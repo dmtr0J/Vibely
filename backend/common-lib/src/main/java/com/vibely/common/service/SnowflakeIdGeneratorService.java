@@ -6,6 +6,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Service
 public class SnowflakeIdGeneratorService {
 
@@ -29,5 +31,9 @@ public class SnowflakeIdGeneratorService {
                 .uri("/api/v1/generator/snowflake/batch?count=" + count)
                 .retrieve()
                 .bodyToFlux(Long.class);
+    }
+
+    public Mono<List<Long>> generateListIds(short count) {
+        return generateIds(count).collectList();
     }
 }

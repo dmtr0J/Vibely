@@ -1,6 +1,6 @@
 package com.vibely.user.service;
 
-import com.vibely.common.entity.Account;
+import com.vibely.common.model.Account;
 import com.vibely.user.repositories.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

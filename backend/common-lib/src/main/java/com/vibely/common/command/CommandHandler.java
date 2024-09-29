@@ -1,7 +1,5 @@
 package com.vibely.common.command;
 
-import reactor.core.publisher.Mono;
-
-public interface CommandHandler<T extends Command> {
-    Mono<Void> handle(T command);
+public interface CommandHandler<C extends Command, R> {
+    R handle(C command);
 }

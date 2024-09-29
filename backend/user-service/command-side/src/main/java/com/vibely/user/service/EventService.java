@@ -15,6 +15,10 @@ public class EventService {
 
     private final UserEventRepository userEventRepository;
 
+    public Flux<Event> findAll() {
+        return userEventRepository.findAll();
+    }
+
     @Transactional
     public Mono<Event> save(Event event) {
         return userEventRepository.save(event);
