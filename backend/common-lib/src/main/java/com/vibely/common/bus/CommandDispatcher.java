@@ -4,6 +4,7 @@ import com.vibely.common.command.Command;
 import com.vibely.common.command.CommandHandler;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
+import reactor.core.CorePublisher;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -33,13 +34,13 @@ public class CommandDispatcher {
         }
     }
 
-    public <C extends Command, R> R dispatchCommand(C command) {
+    public <C extends Command, R extends CorePublisher<?>> R dispatchCommand(C command) {
         CommandHandler<C, R> handler = getCommandHandler(command.getClass());
         return handler.handle(command);
     }
 
     @SuppressWarnings("unchecked")
-    private <C extends Command, R> CommandHandler<C, R> getCommandHandler(Class<?> commandClass) {
+    private <C extends Command, R extends CorePublisher<?>> CommandHandler<C, R> getCommandHandler(Class<?> commandClass) {
         CommandHandler<?, ?> handler = commandHandlers.get(commandClass);
         if (handler == null) {
             throw new IllegalArgumentException("Handler not found for command class: " + commandClass);

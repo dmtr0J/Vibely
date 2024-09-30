@@ -1,11 +1,6 @@
 package com.vibely.user.handler;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vibely.common.bus.HandleCommand;
 import com.vibely.common.model.Account;
-import com.vibely.common.model.Role;
-import com.vibely.common.model.Status;
 import com.vibely.common.service.JsonSerializationService;
 import com.vibely.user.command.CreateAccountCommand;
 import com.vibely.common.event.user.CreateAccountEvent;
@@ -25,7 +20,7 @@ import java.time.LocalDateTime;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CreateAccountHandler implements CommandHandler<CreateAccountCommand, Mono<Void>> {
+public class CreateAccountHandler implements CommandHandler<CreateAccountCommand, Mono<Long>> {
 
     private final EventService eventService;
     private final SnowflakeIdGeneratorService snowflakeIdGeneratorService;
@@ -35,7 +30,7 @@ public class CreateAccountHandler implements CommandHandler<CreateAccountCommand
 
     //TODO Refactor
     @Transactional
-    public Mono<Void> handle(CreateAccountCommand command) {
+    public Mono<Long> handle(CreateAccountCommand command) {
         return snowflakeIdGeneratorService.generateListIds((short) 2)
                 .flatMap(ids -> {
                     Long accountId = ids.get(0);
@@ -54,13 +49,13 @@ public class CreateAccountHandler implements CommandHandler<CreateAccountCommand
                             .data(accountJson)
                             .build();
 
-                    return eventService.save(event)
-                            .flatMap(savedEvent -> Mono.fromFuture(
-                                    kafkaTemplate.send(
+                    eventService.save(event).flatMap(savedEvent -> Mono.fromFuture(kafkaTemplate.send(
                                             "user.account.created",
                                             savedEvent.getData())));
-                })
-                .then();
+
+                    return Mono.just(accountId);
+                });
+                //.then();
     }
 }
 
