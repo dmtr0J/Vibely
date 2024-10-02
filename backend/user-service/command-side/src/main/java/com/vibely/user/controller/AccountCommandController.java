@@ -1,7 +1,5 @@
 package com.vibely.user.controller;
 
-import com.vibely.common.bus.CommandDispatcher;
-import com.vibely.common.service.SnowflakeIdGeneratorService;
 import com.vibely.user.command.CreateAccountCommand;
 import com.vibely.user.handler.CreateAccountHandler;
 import jakarta.validation.Valid;

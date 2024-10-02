@@ -49,13 +49,12 @@ public class CreateAccountHandler implements CommandHandler<CreateAccountCommand
                             .data(accountJson)
                             .build();
 
-                    eventService.save(event).flatMap(savedEvent -> Mono.fromFuture(kafkaTemplate.send(
-                                            "user.account.created",
-                                            savedEvent.getData())));
+                    eventService.save(event)
+                            .flatMap(savedEvent -> Mono.fromFuture(
+                                    kafkaTemplate.send("user.account.created", savedEvent.getData())));
 
                     return Mono.just(accountId);
                 });
-                //.then();
     }
 }
 
